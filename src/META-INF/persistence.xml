@@ -1,0 +1,43 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+    version="2.0">
+
+    <!-- Pela especificação esse arquivo deve ficar dentro da pasta META-INF -->
+    
+    <!-- unidade de persistencia com o nome financas. dentro do mesmo persistence.xml poderiam ter várias unidades, por exemplo, para bancos de dados diferentes: -->
+    <persistence-unit name="financas">
+
+        <!-- Implementação do JPA, no nosso caso Hibernate -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Aqui são listadas todas as entidades -->
+        <class>br.com.caelum.financas.modelo.Conta</class><!-- full qualified name -->
+        <class>br.com.caelum.financas.modelo.Movimentacao</class>
+
+        <properties>    
+            <!-- Propriedades JDBC -->
+            <property name="javax.persistence.jdbc.driver" 
+                value="com.mysql.jdbc.Driver" />
+
+            <property name="javax.persistence.jdbc.url" 
+                value="jdbc:mysql://localhost/financas" />
+
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="pc1000" />
+
+            <!-- Configurações específicas do Hibernate -->
+            <property name="hibernate.dialect" 
+                value="org.hibernate.dialect.MySQL5InnoDBDialect" /> <!-- há dialetos para os diversos bancos e suas versões. É importante sempre procurar o dialeto mais específico. -->
+
+            <property name="hibernate.hbm2ddl.auto" value="update" /><!-- criação e atualização automática das tabelas e colunas no banco de dados.  -->
+           <!-- create : remova todos os dados do banco e crie as tabelas baseando-se nos seus modelos.
+            create-drop : deletamos todos os dados do banco
+            none: desabilta o mapping-->
+           
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+        </properties>
+    </persistence-unit>
+</persistence>
